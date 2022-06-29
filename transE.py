@@ -34,13 +34,9 @@ class TransE(nn.Module):
             pos_score = c_h + c_r - c_t
             pos_score = torch.norm(pos_score, p=self.args.norm, dim=-1).flatten()
             #neg
-            try:
-                batch_corrupts[:, 0]
-                cu_h = self.ent_emb(batch_corrupts[:, 0])
-                cu_t = self.ent_emb(batch_corrupts[:, 1])
-                cu_r = self.rel_emb(batch_corrupts[:, 2])
-            except Exception as e:
-                raise e
+            cu_h = self.ent_emb(batch_corrupts[:, 0])
+            cu_t = self.ent_emb(batch_corrupts[:, 1])
+            cu_r = self.rel_emb(batch_corrupts[:, 2])
             #neg_score
             neg_score = cu_h + cu_r - cu_t
             neg_score = torch.norm(neg_score, p=self.args.norm, dim=-1).flatten()
