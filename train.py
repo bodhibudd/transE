@@ -77,10 +77,6 @@ class Trainer:
                     batch_correct_ids = torch.tensor([cu_tail_tuple], dtype=torch.long,device=self.device)
                     with torch.no_grad():
                         rank_tail[cu_tail_tuple] = self.model(batch_correct_ids, is_eval=True).mean()
-                start = time.time()
-                print("观察耗时情况")
-                end = time.time()
-                print("耗时:", end - start)
                 rank_head = sorted(rank_head.items(), key= lambda x: x[1])
                 rank_tail = sorted(rank_tail.items(), key = lambda x: x[1])
                 for i in range(len(rank_head)):
